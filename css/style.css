@@ -1,0 +1,66 @@
+* {
+    border: 1px dashed red;
+}
+
+body {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, sans-serif;
+    background: gainsboro;
+}
+
+#introDisplay{
+    display: flex;
+}
+
+#topPanel{
+    align-items: center;
+    border: blue;
+    margin: 0;
+}
+
+#topPanelFlex{
+    display: flex;
+    justify-content: center;
+    border: blue;
+}
+
+#diffSelector{
+    display: block;
+}
+
+#display{
+        padding: 0;
+        width: 120px;
+        height: 180px;
+        cursor: pointer;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        background-color: darkgrey;
+        border-radius: 15px;
+        border: 2px solid rgb(255, 60, 60);
+}
+
+.cards {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.button {
+    padding: 0;
+    width: 120px;
+    height: 180px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background-color: darkgrey;
+    border-radius: 15px;
+    border: 2px solid rgb(255, 60, 60);
+}
