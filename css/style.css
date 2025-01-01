@@ -10,6 +10,14 @@ body {
     background: gainsboro;
 }
 
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, sans-serif;
+    background: gainsboro;
+}
+
 #introDisplay{
     display: flex;
 }
@@ -63,4 +71,45 @@ body {
     background-color: darkgrey;
     border-radius: 15px;
     border: 2px solid rgb(255, 60, 60);
+}
+
+.flex-table {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, sans-serif;
+        background: gainsboro;    
+}
+
+/* .created-li {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: system-ui, sans-serif;
+    background: gainsboro;
+} */
+
+.created-button {
+    padding: 0;
+    width: 120px;
+    height: 180px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #ffffff;
+    background-color: darkgrey;
+    border-radius: 15px;
+    border: 2px solid rgb(255, 60, 60);
+}
+
+.created-section {
+        display: inline;
+            justify-content: space-evenly;
+}
+
+.created-ul {
+    display: flex;
+    justify-content: space-evenly;
 }
