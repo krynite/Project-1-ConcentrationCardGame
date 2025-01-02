@@ -7,7 +7,7 @@ body {
     align-items: center;
     justify-content: center;
     font-family: system-ui, sans-serif;
-    background: gainsboro;
+    background: dimgrey;
 }
 
 section {
@@ -15,7 +15,7 @@ section {
     align-items: center;
     justify-content: center;
     font-family: system-ui, sans-serif;
-    background: gainsboro;
+    /* background: gainsboro; */
 }
 
 #introDisplay{
@@ -48,7 +48,7 @@ section {
         align-items: center;
         justify-content: center;
         color: #ffffff;
-        background-color: darkgrey;
+        background-color: gray;
         border-radius: 15px;
         border: 2px solid rgb(255, 60, 60);
 }
@@ -68,7 +68,7 @@ section {
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    background-color: darkgrey;
+    background-color: gray;
     border-radius: 15px;
     border: 2px solid rgb(255, 60, 60);
 }
@@ -87,6 +87,10 @@ section {
     align-items: center;
     font-family: system-ui, sans-serif;
     background: gainsboro;
+} */
+
+/* div {
+    display: flex;
 } */
 
 .created-button {
@@ -112,4 +116,8 @@ section {
 .created-ul {
     display: flex;
     justify-content: space-evenly;
+}
+
+.button-one .button-two .button-three {
+    cursor: pointer;
 }
