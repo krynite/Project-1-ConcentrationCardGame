@@ -32,11 +32,12 @@ const proxyTestButtonElement = document.querySelector('.proxyTestButton')
 const bodyElement = document.querySelector('body')
 const proxyButtonOneElement = document.querySelector('.button-one')
 const proxyButtonTwoElement = document.querySelector('.button-two')
-const proxyButtoneThreeElement = document.querySelector('.button-three')
+// const proxyButtoneThreeElement = document.querySelector('.button-three')
 const proxyButtoneFourElement = document.querySelector('.button-four')
-let arrCardsOnTable = []
-  
-const randomWordSelection = (word) => {             //* RETURNS random Word
+const selectButton = document.querySelectorAll('.created-button')
+
+//TODO: Create Func randomWordSelection(), Arguments: countries, DO: Generate Random words from Array of words 
+const randomWordSelection = (word) => {                             //! DO NOT DELETE -- RETURNS random Word from countries array
     let selectedWord = '';
     let i = Math.floor(Math.random()*word.length) 
     selectedWord = word[i]
@@ -44,31 +45,24 @@ const randomWordSelection = (word) => {             //* RETURNS random Word
     return selectedWord;                                                // Returns String data
 }
 
-
-
-
-
-//console.log(`${tableCardCounter.length}`) // use tableCardCounter.length as counter
-//TODO: Function to add 'li'
-
-const insertOneCard = (event) => {
-    console.log(event)
+const insertCardsCountRefONLY = (element) => {                        //* FOR REFERENCE - CAN DELETE AT END
+    console.log(element)
     // return event;
 }
 
-
-const createNestedListElement = (element) => {                      //* Creates New LI
+const createNestedListElement = (element) => {                      //! DO NOT DELETE -- Nested in createNestedUnlistElement()
     for (let t = 0; t < 6 ; t++) {                      
         const listChildElement = document.createElement('li')
         listChildElement.innerHTML = "Nested List"
         listChildElement.classList.add('created-li')
         listChildElement.classList.add('created-button')        
         element.appendChild(listChildElement)
-        console.log(t)
+        // console.log(t)
         }
 }
 
-const createNestedUnlistElement = (element) => {                    //* Creates New UL
+//TODO: Function to add 'li'
+const createNestedUnlistElement = (element) => {                    //! DO NOT DELETE -- Creates New CARDS
     const unlistedChildElement = document.createElement('ul')
     // unlistedChildElement.innerHTML = 'Nested UL'
     unlistedChildElement.classList.add('created-ul')
@@ -76,8 +70,7 @@ const createNestedUnlistElement = (element) => {                    //* Creates 
     createNestedListElement(unlistedChildElement)
 }
 
-
-const createSectionElement = () => {                                //* Creates New Section
+const createSectionElement = () => {                                //! DO NOT DELETE -- Creates New Section
     const SectionChildElement = document.createElement('section')
     // SectionChildElement.innerHTML = "New Section"
     SectionChildElement.classList.add('created-section')
@@ -88,33 +81,35 @@ const createSectionElement = () => {                                //* Creates 
 
 
 //TODO: Create Function countTotalNumCard(): Arguement: nil DO: Count the number of cards on the table.
-const countTotalNumCard = () => {
+const countTotalNumCard = () => {                                   //! DO NOT DELETE -- Counts Created Cards aka ".created-li" or ".created-button"
     let count = document.querySelectorAll('.created-li').length
     // console.log(typeof count, count)
     return count;
 }
 
 //TODO: Create Function insertRandCardtoArray, Arguement: countTotalNumCard(),  DO: Create an Array, fill with random Words from randomWordSelection(countries) 
-const insertRandCardtoArray = (countTotalNumCard) => {              //* Adds Random Words to arrCardsOnTable[]. NOTICE: 6 cards, 3 Words.
+const selectRandWords = () => {                                     //! DO NOT DELETE -- selects Random Words base on half No. of cards on the table.
         // console.log(typeof countTotalNumCard, countTotalNumCard)
+        let numOfCards = countTotalNumCard()
         let selectedWords = []                                               
-        for(let i=0 ; i<countTotalNumCard/2; i++){                                
+        for(let i=0 ; i<numOfCards/2; i++){                                
             selectedWords[i] = randomWordSelection(countries);
         }
-        // console.log(`${typeof selectedWords} ${selectedWords} Selected 3rd Country: ${selectedWords[2]}`)       //Array is working as intended
+        // console.log(`LOOK HERE        ${typeof selectedWords} ${selectedWords} Selected 3rd Country: ${selectedWords[2]}`)       //Array is working as intended
         return selectedWords;
 }
 
-//TODO: Create Func randTableArray, Arguments: insertRandCardtoArray DO: Add random words to dynamic array. Return Array with 2 same words.
-const randTableArray = (event) => {
-    // console.log(event, "MARKER")
-    // console.log(event[0], "MARKER1")
-    // console.log(event[1], "MARKER2")
-    // console.log(event[2], "MARKER3")
-
+//TODO: Create Func cloneWordsOnTable, Arguments: insertRandCardtoArray DO: Add random words to dynamic array. Return Array with 2 same words.
+const cloneWordsOnTable = (element) => {                              //! DO NOT DELETE -- Cloned Words to be placed on Table
+    let selectedWord = element
+    // console.log(selectedWord, "MARKER")
+    // console.log(selectedWord[0], "MARKER1")
+    // console.log(selectedWord[1], "MARKER2")
+    // console.log(selectedWord[2], "MARKER3")
+    let selectedWordsOnTable = []
     //  console.log(`                               FIRST FOR LOOP`)
-    for (let i = 0 ; i < event.length ; i++){              
-        arrCardsOnTable[i] = event[i];
+    for (let i = 0 ; i < element.length ; i++){              
+        selectedWordsOnTable[i] = element[i];
         // console.log(`                               ${arrCardsOnTable[i]} BELONGS TO FOR LOOP`)
     }
     //     console.log(`                                   Overview CHECK ${arrCardsOnTable[0]} `)
@@ -122,8 +117,8 @@ const randTableArray = (event) => {
     //     console.log(`                                   Overview CHECK ${arrCardsOnTable[2]} `)
     // console.log(`                                                                                   `)
     // console.log(`NEW PUSH AND APPENDCHILD HERE`)
-    for (let j = 0; j < event.length; j++) {
-        arrCardsOnTable.push(arrCardsOnTable[j])
+    for (let j = 0; j < element.length; j++) {
+        selectedWordsOnTable.push(selectedWordsOnTable[j])
         // console.log(`${arrCardsOnTable[j]} BELONGS TO FOR PUSH LOOP`)
     }
         // console.log(`                                   Overview CHECK ${arrCardsOnTable[3]} `)
@@ -136,41 +131,141 @@ const randTableArray = (event) => {
         // console.log(`                                   RECHECK Array 4 CHECK ${arrCardsOnTable[4]} `)
         // console.log(`                                   RECHECK Array 5 CHECK ${arrCardsOnTable[5]} `)
         // console.log(`                                                                                   `)
-        // console.log(`Full Array Addressed: ${arrCardsOnTable}`)
-    return arrCardsOnTable;
+        // console.log(`Selected Cloned Words: ${selectedWordsOnTable}`)
+    return selectedWordsOnTable;
+}
+
+//TODO: Create Func shuffleTableArrayPos, Arguement: cloneWordsOnTable() && countTotalNumCard(), DO: With the Array. Randomise position of the array. 
+//* Used help from this link: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+const shuffleTableArrayPos = (preShuffle) => {                      //! DO NOT DELETE -- Shuffles inserted words on the table
+    
+    // console.dir(`RandTableArrayPos Results:  ${preShuffle} with length ${preShuffle.length}`)
+      let currentIndex = preShuffle.length;
+
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [preShuffle[currentIndex], preShuffle[randomIndex]] = [
+      preShuffle[randomIndex], preShuffle[currentIndex]];
+  }
+  let postShuffle = preShuffle
+    // console.log(`This is post shuffle: ${preShuffle}`)
+   return postShuffle;
+}
+
+//TODO: Create Func insertArrToHtml Argument: RandTableArrayPos() DO: Insert return of shuffleTableArrayPos() back to HTML
+const insertArrToHtml = (element) => {                                //! DO NOTE DELETE -- Inserts words to the cards on the table
+    //event is the Array Countries we Need
+    //element is the querySelectAll
+    const createdButtonElement = document.querySelectorAll('.created-button')
+    // let preInsert = element
+    // console.log(`PreInsertion: ${event} with length ${element.length}`)
+    // console.log(`Element Value: ${createdButtonElement} with length ${createdButtonElement.length}`)
+    // console.log(`Element Value: ${createdButtonElement} with [2]] ${createdButtonElement[2]}`)
+    // console.dir(createdButtonElement)
+
+    element.forEach((value,index) => {
+        if (createdButtonElement[index]) {
+            createdButtonElement[index].innerHTML = value
+        }
+    });
+
+}
+
+//TODO: Create Func userSelectWordsAddClass(), Argument: nill, DO: Highlight, Add class ".selected-button" to user clicked button. 
+const userSelectWordsAddClass = (event) => {                            //set new class, tag new class, remove class route?
+                                                                        //or target route?
+    
 }
 
 
-//TODO: Creat Func randTableArrayPos, Arguement: randTableArray() && countTotalNumCard(), DO: With the Array. Randomise position of the array. 
-const randTableArrayPos = (preRandPos) => {         //? INCOMPLETE
-    let postRandPos = []
-    console.log(`RandTableArrayPos Results:  ${preRandPos}`)
-   return postRandPos;
+
+
+
+
+
+
+// SAT MORNING
+// RUN Through DOM EVENTS LECTURE again.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
+
+//TODO: Create Func boolCheckTwoWords(), Argument: userSelectTwoWords(), DO: Checks 2 arrays if they are true or false. RETURNS bool. 
+const boolCheckTwoWords = (element) => {                            //! DO NOT DELETE (INCOMPLETE) -- Takes index 0 and 1 in element and checks, returns true or false.
+    let boolResult = false
+    if (element[0] === element[1]){
+        boolResult = true
+
+    }  return boolResult;
 }
 
+        //TODO: IF true -- removeSelectedCards class 
+        //TODO: IF false -- userSelectTwoWords 
 
-//TODO: Create Func ???, Argument: RandTableArrayPos() DO: Insert return of RandTableArrayPos() back to HTML
 
 
+
+
+//!-------------------------------- CORE FUNCTIONS ABOVE THIS LINE ---------------------------------\\
+
+//**************************************************************************************************\\
+//***************************************** NEUTRAL ZONE *******************************************\\
+//**************************************************************************************************\\
+
+//!-------------------------------- CALL FUNCTIONS BELOW THIS LINE ---------------------------------\\
+
+const cardsCreation = () => {
+    createSectionElement()
+}
 
 
 const getCardsToTable = () =>{
     // countTotalNumCard()
     // insertRandCardtoArray(countTotalNumCard())
-    // randTableArray(insertRandCardtoArray(countTotalNumCard()))
-    let proxToTablePos = randTableArray(insertRandCardtoArray(countTotalNumCard()))
-    // console.log (`SHOW PROXY`)
-    // console.log(`PROXY RESULTS:             ${proxToTablePos}`)
-    randTableArrayPos(proxToTablePos)
-    // randTableArrayPos()
+    let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
+    insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
+    // let preShuffeWords = cloneWordsOnTable(selectRandWords())
+
+    
+}
+
+const callSelection = () => {
+    userSelectWordsAddClass()
 }
 
 //*--------------- WORKING (KEEPING) ---------------\\
 
-// proxyTestButtonElement.addEventListener('click', createSectionElement)
+
 // insertOneCard(randomWordSelection(countries));
 // proxyButtonOneElement.addEventListener('click',insertOneCard(randomWordSelection(countries)))
-proxyButtonTwoElement.addEventListener('click',createSectionElement)
+proxyButtonTwoElement.addEventListener('click',cardsCreation)
 // proxyButtoneThreeElement.addEventListener('click',countTotalNumCard)
 // proxyButtoneFourElement.addEventListener('click',(e)=>insertRandCardtoArray(countTotalNumCard()))
 proxyButtoneFourElement.addEventListener('click',getCardsToTable)
@@ -179,6 +274,7 @@ proxyButtoneFourElement.addEventListener('click',getCardsToTable)
 
 
 
+// console.log(`Created Button Class: ${createdButtonElement}`)
 
 
 
@@ -210,7 +306,7 @@ proxyButtoneFourElement.addEventListener('click',getCardsToTable)
 
 
 // proxyTestButtonElement.addEventListener('click', addLiElement)
-// proxyTestButtonElement.addEventListener('click', createSectionElement)
+
 
 
 
@@ -239,4 +335,6 @@ proxyButtoneFourElement.addEventListener('click',getCardsToTable)
 // const bridgeRandomWordsAndInserTwoCards = randomWordSelection(countries);
 // const testInsertTwoCardsFunction = insertTwoWords(bridgeRandomWordsAndInserTwoCards);
 // randomWordSelection(countries);
+
+
 
