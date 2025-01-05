@@ -33,8 +33,24 @@ const bodyElement = document.querySelector('body')
 const proxyButtonOneElement = document.querySelector('.button-one')
 const proxyButtonTwoElement = document.querySelector('.button-two')
 // const proxyButtoneThreeElement = document.querySelector('.button-three')
-const proxyButtoneFourElement = document.querySelector('.button-four')
-const selectButton = document.querySelectorAll('.created-button')
+const proxyButtonFourElement = document.querySelector('.button-four')
+const selectButtons = document.querySelectorAll('.created-button')
+const selectSection = document.querySelectorAll('.created-ul')
+// const selectTopPanelElement = document.querySelectorAll('#topPanel')
+
+let selectedButtonsForBoolCheck = [true,false];           //* Bool Check in Selected Cards
+const MAX_SELECTIONS = 2;                       //* Book Check limitation
+
+
+
+
+
+
+
+
+
+
+
 
 //TODO: Create Func randomWordSelection(), Arguments: countries, DO: Generate Random words from Array of words 
 const randomWordSelection = (word) => {                             //! DO NOT DELETE -- RETURNS random Word from countries array
@@ -100,7 +116,7 @@ const selectRandWords = () => {                                     //! DO NOT D
 }
 
 //TODO: Create Func cloneWordsOnTable, Arguments: insertRandCardtoArray DO: Add random words to dynamic array. Return Array with 2 same words.
-const cloneWordsOnTable = (element) => {                              //! DO NOT DELETE -- Cloned Words to be placed on Table
+const cloneWordsOnTable = (element) => {                            //! DO NOT DELETE -- Cloned Words to be placed on Table
     let selectedWord = element
     // console.log(selectedWord, "MARKER")
     // console.log(selectedWord[0], "MARKER1")
@@ -154,7 +170,7 @@ const shuffleTableArrayPos = (preShuffle) => {                      //! DO NOT D
 }
 
 //TODO: Create Func insertArrToHtml Argument: RandTableArrayPos() DO: Insert return of shuffleTableArrayPos() back to HTML
-const insertArrToHtml = (element) => {                                //! DO NOTE DELETE -- Inserts words to the cards on the table
+const insertArrToHtml = (element) => {                              //! DO NOTE DELETE -- Inserts words to the cards on the table
     //event is the Array Countries we Need
     //element is the querySelectAll
     const createdButtonElement = document.querySelectorAll('.created-button')
@@ -173,62 +189,134 @@ const insertArrToHtml = (element) => {                                //! DO NOT
 }
 
 //TODO: Create Func userSelectWordsAddClass(), Argument: nill, DO: Highlight, Add class ".selected-button" to user clicked button. 
-const userSelectWordsAddClass = (event) => {                            //set new class, tag new class, remove class route?
-                                                                        //or target route?
-    
+//set new class, tag new class, remove class route?
+//*or target route? going both classlist and target route. Try forEach.
+
+//     //TODO: Sub-code for below
+//     const addingEventToElements = (elements,event,handler) => {
+//         elements.forEach(element => {
+//             element.addEventListener(event, handler)
+//         })
+//     }
+
+
+
+//* TESTING BOOL CHECKER    -----STILL NOT WORKING!!!
+const boolChecker = () => {
+    console.log (`WOOOOOO`)
+    const selectedButtons = document.querySelectorAll('.selected-button')
+    let boolChecks = []
+    let boolResults = false
+    selectedButtons.forEach(element => {
+        element.addEventListener('click', function(){
+            if(selectedButtons[0].innerText === boolResults[1].innerText){
+                boolResults = true
+            }
+        })
+    })
+    console.log(`This is from boolChecker: ${boolResults}`)
+    // return boolResults
 }
 
 
 
 
+// //TODO: Create Func selectedButtons() DO: insert .selected-button to those that was clicked. Max 2.
+const selectedButtons = () => {
+   const selectButtons = document.querySelectorAll('.created-button');
+    let selectedItems = [];
+    selectButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // If already selected, remove selection
+            if (this.classList.contains('selected-button')) {
+                this.classList.remove('selected-button');
+                selectedItems = selectedItems.filter(item => item !== this);
+                // return;
+            }
+            
+            // If already have 2 selections, remove the first one
+            if (selectedItems.length >= 2) {
+                // boolChecker();
+                selectedItems[0].classList.remove('selected-button');
+                selectedItems.shift();
+            }
+            if(document.querySelectorAll('.selected-button').length === 2){
+                boolChecker();
+            }
+            
+            // console.log(button.textContent)
+            // Add new selection
+            this.classList.add('selected-button');
+            selectedItems.push(this);
+        });
+    });
+}
 
 
 
 
-// SAT MORNING
-// RUN Through DOM EVENTS LECTURE again.
+//! DUPLICATED CODE        ******************************
+// const selectedButtons = () => {
+//    const selectedButtons = document.querySelectorAll('.created-button');
+//     let selectedItems = [];
 
+//     selectedButtons.forEach(button => {
+//         button.addEventListener('click', function() {
+//             // If already selected, remove selection
+//             if (this.classList.contains('selected-button')) {
+//                 this.classList.remove('selected-button');
+//                 selectedItems = selectedItems.filter(item => item !== this);
+//                 return;
+//             }
+            
+//             // If already have 2 selections, remove the first one
+//             if (selectedItems.length >= 2) {
+//                 selectedItems[0].classList.remove('selected-button');
+//                 selectedItems.shift();
+//             }
+            
+//             // Add new selection
+//             this.classList.add('selected-button');
+//             selectedItems.push(this);
+//         });
+//     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//     // return selectedItems;
+// }
+//! DUPLICATED CODE ABOVE       ******************************
 
 
 
         //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
 
 //TODO: Create Func boolCheckTwoWords(), Argument: userSelectTwoWords(), DO: Checks 2 arrays if they are true or false. RETURNS bool. 
-const boolCheckTwoWords = (element) => {                            //! DO NOT DELETE (INCOMPLETE) -- Takes index 0 and 1 in element and checks, returns true or false.
-    let boolResult = false
-    if (element[0] === element[1]){
-        boolResult = true
 
-    }  return boolResult;
-}
+
+
+
+
+
+
+
+
+
+// const boolMerge = () => {
+// const boolCheckElement = document.querySelectorAll('.selected-button')
+//     let selectedButtons = []
+//         boolCheckElement.forEach(boolValue => {
+//             boolValue.addEventListener('click', function(){
+//                 selectedButtons.push(this.classList.textCentent)
+//             })
+//         })
+//         console.log(selectedButtons)
+//     return selectedButtons
+// }
+
+
 
         //TODO: IF true -- removeSelectedCards class 
         //TODO: IF false -- userSelectTwoWords 
-
+//TODO: Write Function to remove all Section Table
 
 
 
@@ -252,45 +340,40 @@ const getCardsToTable = () =>{
     let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
     insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
     // let preShuffeWords = cloneWordsOnTable(selectRandWords())
-
+    selectedButtons();
+    // boolCheckTwoWords(selectedButtonsForBoolCheck)
+    // boolCheckTwoWords();
     
 }
 
-const callSelection = () => {
-    userSelectWordsAddClass()
-}
+// const callSelection = () => {
+//     userSelectWordsAddClass(document.querySelectorAll('.created-button'))
+// }
 
-//*--------------- WORKING (KEEPING) ---------------\\
+selectedButtons();
+// boolChecker();
+// boolMergeCheck(selectedButtonsForBoolCheck);
 
 
-// insertOneCard(randomWordSelection(countries));
-// proxyButtonOneElement.addEventListener('click',insertOneCard(randomWordSelection(countries)))
+
+
+//!-------------------------------- CALL FUNCTIONS ABOVE THIS LINE ---------------------------------\\
+
+//**************************************************************************************************\\
+//***************************************** NEUTRAL ZONE *******************************************\\
+//**************************************************************************************************\\
+
+//!------------------------------- EVENT LISTENERS  BELOW THIS LINE --------------------------------\\
+
+
+
 proxyButtonTwoElement.addEventListener('click',cardsCreation)
-// proxyButtoneThreeElement.addEventListener('click',countTotalNumCard)
-// proxyButtoneFourElement.addEventListener('click',(e)=>insertRandCardtoArray(countTotalNumCard()))
-proxyButtoneFourElement.addEventListener('click',getCardsToTable)
 
+proxyButtonFourElement.addEventListener('click',getCardsToTable)
 
+// selectTopPanelElement.addEventListener('click',userSelectWordsAddClass)
 
-
-
-// console.log(`Created Button Class: ${createdButtonElement}`)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// addingEventToElements(selectButton,'click',userSelectWordsAddClass)
 
 
 
