@@ -121,3 +121,7 @@ section {
 .button-one .button-two .button-three {
     cursor: pointer;
 }
+
+.selected-button {
+    background: pink;
+}

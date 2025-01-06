@@ -40,7 +40,7 @@ const selectSection = document.querySelectorAll('.created-ul')
 
 let selectedButtonsForBoolCheck = [true,false];           //* Bool Check in Selected Cards
 const MAX_SELECTIONS = 2;                       //* Book Check limitation
-
+let gameRunningStatus = false
 
 
 
@@ -54,14 +54,14 @@ const MAX_SELECTIONS = 2;                       //* Book Check limitation
 
 //TODO: Create Func randomWordSelection(), Arguments: countries, DO: Generate Random words from Array of words 
 const randomWordSelection = (word) => {                             //! DO NOT DELETE -- RETURNS random Word from countries array
-    let selectedWord = '';
+    let selectedWord = ''; 
     let i = Math.floor(Math.random()*word.length) 
     selectedWord = word[i]
     // console.log(typeof selectedWord, `${selectedWord} selected word`)   // Checking if it is string.
     return selectedWord;                                                // Returns String data
 }
 
-const insertCardsCountRefONLY = (element) => {                        //* FOR REFERENCE - CAN DELETE AT END
+const insertCardsCountRefONLY = (element) => {                        //* FOR CHECKING AND REFERENCE - CAN DELETE AT END
     console.log(element)
     // return event;
 }
@@ -86,7 +86,7 @@ const createNestedUnlistElement = (element) => {                    //! DO NOT D
     createNestedListElement(unlistedChildElement)
 }
 
-const createSectionElement = () => {                                //! DO NOT DELETE -- Creates New Section
+const createSectionElement = () => {                                //! DO NOT DELETE -- Creates New Section add CLASS "created-section created-section-flex"
     const SectionChildElement = document.createElement('section')
     // SectionChildElement.innerHTML = "New Section"
     SectionChildElement.classList.add('created-section')
@@ -185,7 +185,6 @@ const insertArrToHtml = (element) => {                              //! DO NOTE 
             createdButtonElement[index].innerHTML = value
         }
     });
-
 }
 
 //TODO: Create Func userSelectWordsAddClass(), Argument: nill, DO: Highlight, Add class ".selected-button" to user clicked button. 
@@ -203,19 +202,29 @@ const insertArrToHtml = (element) => {                              //! DO NOTE 
 
 //* TESTING BOOL CHECKER    -----STILL NOT WORKING!!!
 const boolChecker = () => {
-    console.log (`WOOOOOO`)
+    // console.log (`WOOOOOO`)
     const selectedButtons = document.querySelectorAll('.selected-button')
-    let boolChecks = []
+    // console.log(selectedButtons)
+    // let boolChecks = []     
     let boolResults = false
     selectedButtons.forEach(element => {
         element.addEventListener('click', function(){
-            if(selectedButtons[0].innerText === boolResults[1].innerText){
-                boolResults = true
+            console.log(`Testing BoolChecks ${boolResults}`)
+            console.log(`Selected two words: ${selectedButtons[0].textContent} and ${selectedButtons[1].textContent}}`)
+            if(selectedButtons.length === 2){
+                if(selectedButtons[0].innerHTML === selectedButtons[1].innerHTML){
+                    boolResults = true
+                    // console.log(`Testing BoolChecks if True ${boolResults}`)
+                } else {
+                    boolResults = false
+                    // console.log(`Testing BoolChecks if False ${boolResults}`)
+                }
             }
         })
     })
+    console.dir(selectedButtons)
     console.log(`This is from boolChecker: ${boolResults}`)
-    // return boolResults
+    return boolResults
 }
 
 
@@ -227,22 +236,30 @@ const selectedButtons = () => {
     let selectedItems = [];
     selectButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // If already selected, remove selection
+            // If selected, unselects it
             if (this.classList.contains('selected-button')) {
                 this.classList.remove('selected-button');
                 selectedItems = selectedItems.filter(item => item !== this);
-                // return;
+                // console.log(`Check select buttons function toggle class`)
+                return;
             }
-            
-            // If already have 2 selections, remove the first one
-            if (selectedItems.length >= 2) {
+
+            // post 2 selections, remove both
+            if (selectedItems.length === 2) {
+                // console.log(`before boolcheckerfunc`)
                 // boolChecker();
+                // console.log(`after boolcheckerfunc`)
                 selectedItems[0].classList.remove('selected-button');
+                selectedItems[1].classList.remove('selected-button');
                 selectedItems.shift();
+                selectedItems.shift();
+                // console.log(`Check select buttons function max 2 class`)
+                
             }
-            if(document.querySelectorAll('.selected-button').length === 2){
-                boolChecker();
-            }
+            // if(document.querySelectorAll('.selected-button').length === 2){
+            //     console.log(`call boolChecker`)
+            //     boolChecker();
+            // }
             
             // console.log(button.textContent)
             // Add new selection
@@ -339,18 +356,15 @@ const getCardsToTable = () =>{
     // insertRandCardtoArray(countTotalNumCard())
     let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
     insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
-    // let preShuffeWords = cloneWordsOnTable(selectRandWords())
     selectedButtons();
     // boolCheckTwoWords(selectedButtonsForBoolCheck)
     // boolCheckTwoWords();
     
 }
 
-// const callSelection = () => {
-//     userSelectWordsAddClass(document.querySelectorAll('.created-button'))
-// }
 
-selectedButtons();
+
+// selectedButtons();     //! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // boolChecker();
 // boolMergeCheck(selectedButtonsForBoolCheck);
 
@@ -379,35 +393,7 @@ proxyButtonFourElement.addEventListener('click',getCardsToTable)
 
 
 //TODO: Write Function to remove all Section Table
-
-
-
-
-
-
-
-
-
 // proxyTestButtonElement.addEventListener('click', addLiElement)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //*--------------- WORKING (OTHERS) MAYBE NOT KEEPING ---------------\\
 
@@ -419,5 +405,7 @@ proxyButtonFourElement.addEventListener('click',getCardsToTable)
 // const testInsertTwoCardsFunction = insertTwoWords(bridgeRandomWordsAndInserTwoCards);
 // randomWordSelection(countries);
 
-
-
+// const test = (x) => {
+//     console.log(`test ${x}`)
+// }
+// document.querySelector('#test-button').addEventListener('click', ()=> test(`testing`))
