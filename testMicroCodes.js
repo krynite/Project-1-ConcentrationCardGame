@@ -16,6 +16,19 @@ function shuffle(array) {
 
 // Used like so
 // let arr = [2, 11, 37, 42];
-let arr = ['Lithuania','Guinea-Bissau','Guinea-Bissau','Saint Kitts and Nevis','Saint Kitts and Nevis','Norway','Sierra Leone','Venezuela','Venezuela','Lithuania','Norway','Sierra Leone'];
-shuffle(arr);
-console.log(arr);
+// let arr = ['Lithuania','Guinea-Bissau','Guinea-Bissau','Saint Kitts and Nevis','Saint Kitts and Nevis','Norway','Sierra Leone','Venezuela','Venezuela','Lithuania','Norway','Sierra Leone'];
+// shuffle(arr);
+// console.log(arr);
+let testScope = ''
+
+const testFunc = () => {
+  
+  console.log(`Inside testFunc: ${testScope}`)
+  const testNestedFunc = () => {
+    testScope = 'Nested Func Value'
+  }
+  testNestedFunc()
+
+}
+testFunc()
+console.log(`Outside testFunc: ${testScope}`)

@@ -33,7 +33,6 @@ const bodyElement = document.querySelector('body')
 // const proxyButtonOneElement = document.querySelector('.button-one')
 const proxyButtonTwoElement = document.querySelector('.button-two')
 const proxyButtonFourElement = document.querySelector('.button-four')
-const selectButtons = document.querySelectorAll('.created-button')
 const selectSection = document.querySelectorAll('.created-ul')
 const selecedCreatedButtons = document.querySelectorAll('.selected-button')
 // const selectTopPanelElement = document.querySelectorAll('#topPanel')
@@ -41,7 +40,10 @@ const selecedCreatedButtons = document.querySelectorAll('.selected-button')
 let selectedButtonsForBoolCheck = [true,false];           //* Bool Check in Selected Cards
 const MAX_SELECTIONS = 2;                       //* Book Check limitation
 let gameRunningStatus = false
-let selectedItems = [];
+let selectedItems = []
+let globalSelectedItems = []
+
+// let selectedWordStringify = []; //May not be needed.
 
 
 
@@ -170,43 +172,77 @@ const boolChecker = (element) => {
 
 
 
+
+
+// let returnSelected = []
+// //TODO: Create Func selectedButtons() DO: insert .selected-button to those that was clicked. Max 2.
+// function selectTwoButtons() {
+//     const selectedButtons = document.querySelectorAll('.created-button');
+
+//     selectedButtons.forEach(button => {
+//         button.addEventListener('click', function() {
+//             // If already selected, remove selection
+//             if (this.classList.contains('selected-button')) {
+//                 this.classList.remove('selected-button');
+//                 selectedItems = selectedItems.filter(item => item !== this);
+//                 console.log('Selected words:', getSelectedWords());
+//                 return;
+//             }
+            
+//             // If already have 2 selections, remove the first one
+//             if (selectedItems.length >= 2) {
+//                 selectedItems[0].classList.remove('selected-button');
+//                 selectedItems[1].classList.remove('selected-button');
+//                 selectedItems.shift();
+//                 selectedItems.shift();
+//             }
+            
+//             // Add new selection
+//             this.classList.add('selected-button');
+//             selectedItems.push(this);
+            
+//             // Log current selections
+//             console.log('Selected words:', getSelectedWords());  //! << Cant get the data out of this. Trying to have a return on the functions electTwoButtons() so I can pass onto boolChecker()
+//             selectedWordStringify = JSON.stringify(getSelectedWords())
+//             // console.log(`This is Test : ${selectedWordStringify}`)
+//             return selectedWordStringify
+//         });
+//     });
+// }
+
 const getSelectedWords =() => {
     return selectedItems.map(item => item.textContent);
 }
 
-// let returnSelected = []
-// //TODO: Create Func selectedButtons() DO: insert .selected-button to those that was clicked. Max 2.
-function selectTwoButtons() {
-    const selectedButtons = document.querySelectorAll('.created-button');
+function highlightSelectedWord() {
+    console.dir(this.innerHTML)
+    if (this.classList.contains('.selected-button')){
+        this.classList.remove('.selected-button')
+        selectedItems = selectedItems.filter(item => item !== this)
+        return;
+    }
 
-    selectedButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // If already selected, remove selection
-            if (this.classList.contains('selected-button')) {
-                this.classList.remove('selected-button');
-                selectedItems = selectedItems.filter(item => item !== this);
-                console.log('Selected words:', getSelectedWords());
-                return;
-            }
-            
-            // If already have 2 selections, remove the first one
-            if (selectedItems.length >= 2) {
-                selectedItems[0].classList.remove('selected-button');
-                selectedItems[1].classList.remove('selected-button');
-                selectedItems.shift();
-                selectedItems.shift();
-            }
-            
-            // Add new selection
-            this.classList.add('selected-button');
-            selectedItems.push(this);
-            
-            // Log current selections
-            console.log('Selected words:', getSelectedWords());  //! << Cant get the data out of this. Trying to have a return on the functions electTwoButtons() so I can pass onto boolChecker()
-        });
-    });
+    if (selectedItems.length >= 2){
+        globalSelectedItems = JSON.stringify(getSelectedWords())
+        console.log(`Text " ${globalSelectedItems}`)
+        selectedItems[0].classList.remove('selected-button')
+        selectedItems[1].classList.remove('selected-button')
+        selectedItems.shift()
+        selectedItems.shift()
+    }
+    
+    this.classList.add('selected-button')
+    selectedItems.push(this)
+    
 }
 
+function initializeOps() {
+    // Attach event listeners to buttons
+    let selectButtons = document.querySelectorAll('.created-button')
+    selectButtons.forEach(button => {
+        button.addEventListener('click', highlightSelectedWord);
+    });
+}
 
 
 //!---------------------------------------------------
@@ -279,16 +315,18 @@ const cardsCreation = () => {
 
 
 //* Adds user selected rows of cards, fills all card slot with randomized words.
-const getCardsToTable = () =>{
+const initializeTable = () =>{
         let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
         insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
-        selectTwoButtons()
-        console.log(getSelectedWords());
+        initializeOps()
+        // console.log(`Func: OutSelected ITems: ${getSelectedWords}`)
+        // console.log(getSelectedWords());
+        // console.log(`This is Test : ${selectedWordStringify}`)
         // const getSelected = selectTwoButtons();
         // const selectedWords = getSelected();
         // boolChecker()
-        let arr = ('Singapore','Singapore')
-        boolChecker(arr)
+        // let arr = ('Singapore','Singapore')
+        // boolChecker(arr)
 }
 
 
@@ -305,7 +343,7 @@ const getCardsToTable = () =>{
 
 proxyButtonTwoElement.addEventListener('click',cardsCreation)
 
-proxyButtonFourElement.addEventListener('click',getCardsToTable)
+proxyButtonFourElement.addEventListener('click',initializeTable)
 
 
 
