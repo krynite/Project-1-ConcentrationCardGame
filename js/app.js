@@ -41,6 +41,7 @@ const selecedCreatedButtons = document.querySelectorAll('.selected-button')
 let selectedButtonsForBoolCheck = [true,false];           //* Bool Check in Selected Cards
 const MAX_SELECTIONS = 2;                       //* Book Check limitation
 let gameRunningStatus = false
+let selectedItems = [];
 
 
 
@@ -157,80 +158,101 @@ const insertArrToHtml = (element) => {                              //! DO NOTE 
 //     }
 
 
-
-//* TESTING BOOL CHECKER    -----STILL NOT WORKING!!!
-// const boolChecker = () => {                  //! Old bool checker
-//     // console.log (`WOOOOOO`)
-//     const selectedButtons = document.querySelectorAll('.selected-button')
-//     // console.log(selectedButtons)
-//     // let boolChecks = []     
-//     let boolResults = false
-//     selectedButtons.forEach(element => {
-//         element.addEventListener('click', function(){
-//             console.log(`Testing BoolChecks ${boolResults}`)
-//             console.log(`Selected two words: ${selectedButtons[0].textContent} and ${selectedButtons[1].textContent}}`)
-//             if(selectedButtons.length === 2){
-//                 if(selectedButtons[0].innerHTML === selectedButtons[1].innerHTML){
-//                     boolResults = true
-//                     // console.log(`Testing BoolChecks if True ${boolResults}`)
-//                 } else {
-//                     boolResults = false
-//                     // console.log(`Testing BoolChecks if False ${boolResults}`)
-//                 }
-//             }
-//         })
-//     })
-//     console.dir(selectedButtons)
-//     console.log(`This is from boolChecker: ${boolResults}`)
-//     return boolResults
-// }
 const boolChecker = (element) => {
-    let selectedWords = [];
-    let boolCheck = false
-    console.dir(checkSelected)
-    console.log(`check selected ${element}`)
-  
-
+    let boolResult = false
+    if(element[0] === element[1]) {
+        boolResult = true
+        console.log(boolResult)
+        return boolResult
+    }
+    return boolResult
 }
 
 
+
+const getSelectedWords =() => {
+    return selectedItems.map(item => item.textContent);
+}
+
+// let returnSelected = []
 // //TODO: Create Func selectedButtons() DO: insert .selected-button to those that was clicked. Max 2.
-const selectedButtons = () => {
-    let selectedItems = [];
+function selectTwoButtons() {
+    const selectedButtons = document.querySelectorAll('.created-button');
 
-    const selectButtons = document.querySelectorAll('.created-button');
-    const getSelectedWords = () => {
-        let selectedItems = selectedItems.map(text => text.textContent)
-        return selectedItems
-    }
-
-
-    selectButtons.forEach(button => {
+    selectedButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // If selected, unselects it
+            // If already selected, remove selection
             if (this.classList.contains('selected-button')) {
                 this.classList.remove('selected-button');
                 selectedItems = selectedItems.filter(item => item !== this);
-                console.log(`Selected Item in func: ${getSelectedWords}`)
+                console.log('Selected words:', getSelectedWords());
                 return;
             }
-
-            // post 2 selections, remove both
-            if (selectedItems.length === 2) {
+            
+            // If already have 2 selections, remove the first one
+            if (selectedItems.length >= 2) {
                 selectedItems[0].classList.remove('selected-button');
                 selectedItems[1].classList.remove('selected-button');
                 selectedItems.shift();
                 selectedItems.shift();
             }
+            
+            // Add new selection
             this.classList.add('selected-button');
             selectedItems.push(this);
+            
+            // Log current selections
+            console.log('Selected words:', getSelectedWords());  //! << Cant get the data out of this. Trying to have a return on the functions electTwoButtons() so I can pass onto boolChecker()
         });
-        
     });
-    
-
 }
 
+
+
+//!---------------------------------------------------
+// const selectedButtons = () => {
+
+//     let selectedItems = [];
+
+
+//     const selectButtons = document.querySelectorAll('.created-button');
+
+//     const getSelectedWords = () =>{
+//         returnSelected = selectedItems.map(item => item.textContent)
+//         return selectedItems.map(item => item.textContent);
+//     }
+
+//                     selectButtons.forEach(button => {
+//                                     button.addEventListener('click', function() {
+//                                         // If selected, unselects it
+//                                         if (this.classList.contains('selected-button')) {
+//                                             this.classList.remove('selected-button');
+//                                             selectedItems = selectedItems.filter(item => item !== this);
+//                                             return;
+//                                         }
+
+//                                         // after 2 selections, remove both
+//                                         if (selectedItems.length === 2) {
+//                                             selectedItems[0].classList.remove('selected-button');
+//                                             selectedItems[1].classList.remove('selected-button');
+//                                             selectedItems.shift();
+//                                             selectedItems.shift();
+//                                         }
+
+//                                         this.classList.add('selected-button');
+//                                         selectedItems.push(this);
+//                                         // getSelectedWords();
+
+//                                         // console.log('Currently selected:', getSelectedWords());
+//                                         // console.log(`Currently Selected: ${typeof getSelectedWords()} ${getSelectedWords()}`)
+//                                         // console.log(`Currently Selected stringify: ${JSON.stringify(getSelectedWords())}`)
+//                                         returnSelected = JSON.stringify(getSelectedWords())
+//                                         console.log(`Returned Value: ${returnSelected}`)
+//                                 })
+//                 })
+//     console.log(`Returnedasdasd Value: ${returnSelected}`)
+// }
+//!---------------------------------------------------
 
 
         //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
@@ -254,17 +276,19 @@ const cardsCreation = () => {
     createSectionElement()
 }
 
-selectedButtons()
-    const getCardsToTable = () =>{
+
+
+//* Adds user selected rows of cards, fills all card slot with randomized words.
+const getCardsToTable = () =>{
         let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
         insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
-        selectedButtons();
-        if(selecedCreatedButtons.length === 2){
-            boolChecker(selecedCreatedButtons)
-        }
-        // boolCheckTwoWords(selectedButtonsForBoolCheck)
-        // boolCheckTwoWords();
-        
+        selectTwoButtons()
+        console.log(getSelectedWords());
+        // const getSelected = selectTwoButtons();
+        // const selectedWords = getSelected();
+        // boolChecker()
+        let arr = ('Singapore','Singapore')
+        boolChecker(arr)
 }
 
 
