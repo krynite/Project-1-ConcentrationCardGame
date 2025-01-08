@@ -179,7 +179,7 @@ function boolChecker() {
 
 function countTableClear() {
     let countBoolTrue = document.querySelectorAll('bool-true').length
-    // console.log(`TESTEST`)
+    console.log(`TESTEST`)
     if(countBoolTrue === countTotalNumCard() ){
             console.log(`TESTEST`)
     }
@@ -251,8 +251,14 @@ function highlightSelectedWord() {
     }
     this.classList.add('selected-button')
     selectedItems.push(this)
-    
-    
+    // console.log(`before if`)
+    // console.log(`Count card ${typeof countTotalNumCard()}${countTotalNumCard()} and passed ${typeof document.querySelectorAll('.bool-true').length} ${document.querySelectorAll('.bool-true').length}`)
+    if(countTotalNumCard() == document.querySelectorAll('.bool-true').length){
+        document.querySelectorAll('.bool-true').forEach(element => {
+            element.classList.remove('bool-true')
+            initializeTable()
+        })
+    }
     
 }
 
@@ -261,9 +267,10 @@ function initializeOps() {
     selectButtons.forEach(button => {
         button.addEventListener('click', highlightSelectedWord);
     });
-    selectButtons.forEach(button => {
-        button.addEventListener('click', countTableClear);
-    });
+    console.log(`init `)
+    // selectButtons.forEach(button => {
+    //     button.addEventListener('click', countTableClear);
+    // });
 }
 
 
