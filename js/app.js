@@ -160,17 +160,30 @@ const insertArrToHtml = (element) => {                              //! DO NOTE 
 //     }
 
 
-const boolChecker = (element) => {
-    let boolResult = false
-    if(element[0] === element[1]) {
+function boolChecker() {
+    let boolResult = null
+    console.log(`Injected Words 0: ${globalSelectedItems[0]}`)
+    console.log(`Injected Words 1: ${globalSelectedItems[1]}`)
+    if(globalSelectedItems[0] == globalSelectedItems[1]) {
         boolResult = true
+        console.log(`BoolChecker T: ${boolResult}`)
         console.log(boolResult)
+        selectedItems.forEach(item => item.classList.add('bool-true'));
+        return boolResult
+    } else  { 
+        boolResult = false
+        console.log(`BoolChecker F: ${boolResult}`)
         return boolResult
     }
-    return boolResult
 }
 
-
+function countTableClear() {
+    let countBoolTrue = document.querySelectorAll('bool-true').length
+    // console.log(`TESTEST`)
+    if(countBoolTrue === countTotalNumCard() ){
+            console.log(`TESTEST`)
+    }
+}
 
 
 
@@ -210,37 +223,46 @@ const boolChecker = (element) => {
 //     });
 // }
 
-const getSelectedWords =() => {
+function getSelectedWords() {
+    console.log(`Selected Items: ${selectedItems.textContent} and Type: ${typeof selectedItems.textContent}`)
     return selectedItems.map(item => item.textContent);
 }
 
 function highlightSelectedWord() {
     console.dir(this.innerHTML)
-    if (this.classList.contains('.selected-button')){
-        this.classList.remove('.selected-button')
-        selectedItems = selectedItems.filter(item => item !== this)
+    if (this.classList.contains('selected-button')) {
+        this.classList.remove('selected-button');
+        selectedItems = selectedItems.filter(item => item !== this);
+        console.log('Selected words:', getSelectedWords());
         return;
     }
 
-    if (selectedItems.length >= 2){
-        globalSelectedItems = JSON.stringify(getSelectedWords())
-        console.log(`Text " ${globalSelectedItems}`)
+    if (selectedItems.length === 2){
+        // globalSelectedItems = JSON.stringify(getSelectedWords())
+        globalSelectedItems = getSelectedWords()
+        // console.log(`Text " ${globalSelectedItems} Type: ${typeof globalSelectedItems}`)
+        // console.log(`Text " ${globalSelectedItems[0]}`)
+        // console.log(`Text " ${globalSelectedItems[1]}`)
+        boolChecker()
         selectedItems[0].classList.remove('selected-button')
         selectedItems[1].classList.remove('selected-button')
         selectedItems.shift()
         selectedItems.shift()
     }
-    
     this.classList.add('selected-button')
     selectedItems.push(this)
+    
+    
     
 }
 
 function initializeOps() {
-    // Attach event listeners to buttons
     let selectButtons = document.querySelectorAll('.created-button')
     selectButtons.forEach(button => {
         button.addEventListener('click', highlightSelectedWord);
+    });
+    selectButtons.forEach(button => {
+        button.addEventListener('click', countTableClear);
     });
 }
 
@@ -319,7 +341,9 @@ const initializeTable = () =>{
         let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
         insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
         initializeOps()
-        // console.log(`Func: OutSelected ITems: ${getSelectedWords}`)
+        // console.log(`test init`)
+        // countTableClear()
+        // console.log(`test init2`)
         // console.log(getSelectedWords());
         // console.log(`This is Test : ${selectedWordStringify}`)
         // const getSelected = selectTwoButtons();

@@ -123,5 +123,9 @@ section {
 }
 
 .selected-button {
-    background: pink;
+    background: yellowgreen;
+}
+
+.bool-true {
+    background: green;
 }
