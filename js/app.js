@@ -52,16 +52,6 @@ let scoreBoardCounter = 0
 let finalScore = 0
 
 
-
-
-
-
-
-
-
-
-
-
 //TODO: Create Func randomWordSelection(), Arguments: countries, DO: Generate Random words from Array of words 
 const randomWordSelection = (word) => {                             //! DO NOT DELETE -- RETURNS random Word from countries array
     let selectedWord = ''; 
