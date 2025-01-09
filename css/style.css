@@ -124,13 +124,17 @@ section {
 .button-one .button-two .button-three {
     cursor: pointer;
 }
-
+.hidden-text {
+    color: rgba(60, 179, 113, 0)
+}
 .selected-button {
     background: yellowgreen;
+    color: whitesmoke;
 }
 
 .bool-true {
     background: green;
+    
 }
 
 .scoreboard {
@@ -138,3 +142,4 @@ section {
         justify-content: space-evenly;
         flex-grow: 4
 }
+

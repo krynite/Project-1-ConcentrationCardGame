@@ -155,18 +155,6 @@ const insertArrToHtml = (element) => {                              //! DO NOTE 
     });
 }
 
-//TODO: Create Func userSelectWordsAddClass(), Argument: nill, DO: Highlight, Add class ".selected-button" to user clicked button. 
-//set new class, tag new class, remove class route?
-//*or target route? going both classlist and target route. Try forEach.
-
-//     //TODO: Sub-code for below
-//     const addingEventToElements = (elements,event,handler) => {
-//         elements.forEach(element => {
-//             element.addEventListener(event, handler)
-//         })
-//     }
-
-
 function boolChecker() {
     let boolResult = null
     console.log(`Injected Words 0: ${globalSelectedItems[0]}`)
@@ -193,20 +181,26 @@ function countDownTimer() {
     if (timeLeft == -1) {
         clearTimeout(timer)
         console.log(`Ran out of time!`)
-        finalScore = 
+        // finalScore = 
         summaryDisplay();
+        scoreBoardCounter = 0
+        boolCounter = 0
+        document.querySelector('.scoreClass').innerHTML = "Score: "  + scoreBoardCounter
     } else {
         document.querySelector('.timerClass').innerHTML = "Time Left: "+timeLeft+"s"
         timeLeft--
     }
-    console.log(`Countdown: ${timeLeft}`)
+    // console.log(`Countdown: ${timeLeft}`)
 }
 
 function scoreBoard() {
-    let gameDifficulty = 1                                              // hidden cards more multiplier
-    let gameRows = document.querySelectorAll('.created-ul').length      // score multipler base on no. of rows. 
+    let gameDifficulty = 1      
+    
+    
+    // hidden cards more multiplier
+    let gameRows = (document.querySelectorAll('.created-ul').length)*2      // score multipler base on no. of rows. 
 
-    if(document.querySelector('.diffSelector').classList.contains)
+    // if(document.querySelector('.diffSelector').classList.contains)
 
 
     scoreBoardCounter = boolCounter*gameRows*gameDifficulty
@@ -224,15 +218,16 @@ function getSelectedWords() {
 }
 
 function highlightSelectedWord() {
-
+    chooseDifficulty()
     console.dir(this.innerHTML)
-    if (this.classList.contains('selected-button')) {
+        if (this.classList.contains('selected-button')) {
         this.classList.remove('selected-button');
         selectedItems = selectedItems.filter(item => item !== this);
         console.log('Selected words:', getSelectedWords());
         return;
     }
 
+    console.log(`Inbetween : ${selectedItems}`)
     if (selectedItems.length === 2){
         // globalSelectedItems = JSON.stringify(getSelectedWords())
         globalSelectedItems = getSelectedWords()
@@ -246,6 +241,7 @@ function highlightSelectedWord() {
         selectedItems[1].classList.remove('selected-button')
         selectedItems.shift()
         selectedItems.shift()
+        // selectedItems = []
     }
     this.classList.add('selected-button')
     selectedItems.push(this)
@@ -261,6 +257,8 @@ function highlightSelectedWord() {
 }
 
 function initializeOps() {
+    
+    chooseDifficulty()
     let selectButtons = document.querySelectorAll('.created-button')
     selectButtons.forEach(button => {
         button.addEventListener('click', highlightSelectedWord);
@@ -271,8 +269,28 @@ function initializeOps() {
     // });
 }
 
-function chooseDifficulty() {
+function invis(){
+let hiddenButtons = document.querySelectorAll('.created-button')
+        if(this.value === "hard"){
+            console.log(`Test to see if HARD works`)
+            hiddenButtons.forEach(button => {
+            button.classList.add('hidden-text')
+            })
 
+        }
+        if(this.value === "easy"){            
+            console.log(`Test to see if EZ works`)
+            hiddenButtons.forEach(button => {
+                button.classList.remove('hidden-text')
+            })
+        }
+}
+
+
+//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+function chooseDifficulty() {
+    document.querySelector('.diiffSelector').addEventListener('click',invis)
+    console.log(`Testing chooseDifficulty`)
 }
 
         //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
@@ -293,6 +311,7 @@ function chooseDifficulty() {
 //!-------------------------------- CALL FUNCTIONS BELOW THIS LINE ---------------------------------\\
 
 const cardsCreation = () => {
+    chooseDifficulty()
     createSectionElement()
 }
 
@@ -300,10 +319,15 @@ const cardsCreation = () => {
 
 //* Adds user selected rows of cards, fills all card slot with randomized words.
 const initializeTable = () =>{
+        
         let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
         insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
+        // chooseDifficulty()
         initializeOps()
+        document.querySelector('#display').setAttribute("style","font-size: 14px;")
+        document.querySelector('#display').innerHTML = "To play, click for the number of rows you want, select the difficulty and start the game."
         // scoreBoard()
+        chooseDifficulty()
 }
 
 const resetAll = () => {
@@ -323,12 +347,17 @@ const resetAll = () => {
     document.querySelector('#display').setAttribute("style","font-size: 14px;")
     document.querySelector('#display').innerHTML = "To play, click for the number of rows you want, select the difficulty and start the game."
     timeLeft = 0  
-    // clearTimeout(timer)
-    countDownTimer()
+    // clearTimeout(timer) 
+    
 
     scoreBoardCounter = 0
+    boolCounter = 0
+    finalScore = 0
+    countDownTimer()
     scoreBoard()
     boolChecker()
+    chooseDifficulty()
+    // finalScore =-1
 }
 
 function summaryDisplay(){
@@ -352,9 +381,10 @@ proxyButtonTwoElement.addEventListener('click',cardsCreation)       // SET ROWS 
 
 proxyButtonFourElement.addEventListener('click',function(){
     clearTimeout(timer)
-    timeLeft = 10    //! TIMER HERE!!
+    timeLeft = 30    //! TIMER HERE!!
     countDownTimer()
     timer = setInterval(countDownTimer,1000)
+    chooseDifficulty()
 })
 proxyButtonFourElement.addEventListener('click',initializeTable)    // START GAME BUTTON
 
