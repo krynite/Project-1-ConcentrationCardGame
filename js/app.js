@@ -195,7 +195,10 @@ function countDownTimer() {
 
 function scoreBoard() {
     let gameDifficulty = 1      
-    
+
+    if(document.querySelector('.diffSelector').selectedOptions[0].text === "Hard - Words are hidden."){
+        gameDifficulty = 5
+    }
     
     // hidden cards more multiplier
     let gameRows = (document.querySelectorAll('.created-ul').length)*2      // score multipler base on no. of rows. 
@@ -269,28 +272,32 @@ function initializeOps() {
     // });
 }
 
-function invis(){
-let hiddenButtons = document.querySelectorAll('.created-button')
-        if(this.value === "hard"){
-            console.log(`Test to see if HARD works`)
-            hiddenButtons.forEach(button => {
-            button.classList.add('hidden-text')
-            })
-
-        }
-        if(this.value === "easy"){            
-            console.log(`Test to see if EZ works`)
-            hiddenButtons.forEach(button => {
-                button.classList.remove('hidden-text')
-            })
-        }
-}
-
-
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
 function chooseDifficulty() {
-    document.querySelector('.diiffSelector').addEventListener('click',invis)
-    console.log(`Testing chooseDifficulty`)
+    // document.querySelector('.diffSelector').addEventListener('click',invis)
+    let hiddenButtons = document.querySelectorAll('.created-button')
+    // console.log(`Testing chooseDifficulty`)
+    console.dir(hiddenButtons)
+    console.log(`Checking Dom HARD: ${document.querySelector('.diffSelector').selectedOptions[0].text == "Hard - Words are hidden."}`)
+
+    if(document.querySelector('.diffSelector').selectedOptions[0].text === "Hard - Words are hidden."){
+        console.log('test if Hard')
+        hiddenButtons.forEach(button => {
+            button.classList.add('hidden-text')
+            
+        })
+        }
+
+    if(document.querySelector('.diffSelector').selectedOptions[0].text === "Easy - Words are revealed."){
+        console.log('test if Ez')
+        hiddenButtons.forEach(button => {
+            button.classList.remove('hidden-text')
+            
+        })
+        
+        }
+        
+    
 }
 
         //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
@@ -311,7 +318,7 @@ function chooseDifficulty() {
 //!-------------------------------- CALL FUNCTIONS BELOW THIS LINE ---------------------------------\\
 
 const cardsCreation = () => {
-    chooseDifficulty()
+    // chooseDifficulty()
     createSectionElement()
 }
 
