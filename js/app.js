@@ -42,8 +42,15 @@ const MAX_SELECTIONS = 2;                       //* Book Check limitation
 let gameRunningStatus = false
 let selectedItems = []
 let globalSelectedItems = []
+const resetButtonElement = document.querySelector('.button-five')
+let boolCounter = 0;
+// let timeElm = document.getElementById('timerClass');
+let timer;
+let timeLeft = 60
+// let timer = setInterval(countDownTimer,1000)
+let scoreBoardCounter = 0
+let finalScore = 0
 
-// let selectedWordStringify = []; //May not be needed.
 
 
 
@@ -165,6 +172,8 @@ function boolChecker() {
     console.log(`Injected Words 0: ${globalSelectedItems[0]}`)
     console.log(`Injected Words 1: ${globalSelectedItems[1]}`)
     if(globalSelectedItems[0] == globalSelectedItems[1]) {
+        boolCounter++
+        console.log(`boolCounter: ${boolCounter}`)
         boolResult = true
         console.log(`BoolChecker T: ${boolResult}`)
         console.log(boolResult)
@@ -177,51 +186,37 @@ function boolChecker() {
     }
 }
 
-function countTableClear() {
-    let countBoolTrue = document.querySelectorAll('bool-true').length
-    console.log(`TESTEST`)
-    if(countBoolTrue === countTotalNumCard() ){
-            console.log(`TESTEST`)
+
+// https://stackoverflow.com/questions/4435776/simple-clock-that-counts-down-from-30-seconds-and-executes-a-function-afterward
+function countDownTimer() {
+
+    if (timeLeft == -1) {
+        clearTimeout(timer)
+        console.log(`Ran out of time!`)
+        finalScore = 
+        summaryDisplay();
+    } else {
+        document.querySelector('.timerClass').innerHTML = "Time Left: "+timeLeft+"s"
+        timeLeft--
     }
+    console.log(`Countdown: ${timeLeft}`)
+}
+
+function scoreBoard() {
+    let gameDifficulty = 1                                              // hidden cards more multiplier
+    let gameRows = document.querySelectorAll('.created-ul').length      // score multipler base on no. of rows. 
+
+    if(document.querySelector('.diffSelector').classList.contains)
+
+
+    scoreBoardCounter = boolCounter*gameRows*gameDifficulty
+    document.querySelector('.scoreClass').innerHTML = "Score: " + scoreBoardCounter
+    finalScore = scoreBoardCounter
 }
 
 
 
-// let returnSelected = []
 // //TODO: Create Func selectedButtons() DO: insert .selected-button to those that was clicked. Max 2.
-// function selectTwoButtons() {
-//     const selectedButtons = document.querySelectorAll('.created-button');
-
-//     selectedButtons.forEach(button => {
-//         button.addEventListener('click', function() {
-//             // If already selected, remove selection
-//             if (this.classList.contains('selected-button')) {
-//                 this.classList.remove('selected-button');
-//                 selectedItems = selectedItems.filter(item => item !== this);
-//                 console.log('Selected words:', getSelectedWords());
-//                 return;
-//             }
-            
-//             // If already have 2 selections, remove the first one
-//             if (selectedItems.length >= 2) {
-//                 selectedItems[0].classList.remove('selected-button');
-//                 selectedItems[1].classList.remove('selected-button');
-//                 selectedItems.shift();
-//                 selectedItems.shift();
-//             }
-            
-//             // Add new selection
-//             this.classList.add('selected-button');
-//             selectedItems.push(this);
-            
-//             // Log current selections
-//             console.log('Selected words:', getSelectedWords());  //! << Cant get the data out of this. Trying to have a return on the functions electTwoButtons() so I can pass onto boolChecker()
-//             selectedWordStringify = JSON.stringify(getSelectedWords())
-//             // console.log(`This is Test : ${selectedWordStringify}`)
-//             return selectedWordStringify
-//         });
-//     });
-// }
 
 function getSelectedWords() {
     console.log(`Selected Items: ${selectedItems.textContent} and Type: ${typeof selectedItems.textContent}`)
@@ -229,6 +224,7 @@ function getSelectedWords() {
 }
 
 function highlightSelectedWord() {
+
     console.dir(this.innerHTML)
     if (this.classList.contains('selected-button')) {
         this.classList.remove('selected-button');
@@ -243,7 +239,9 @@ function highlightSelectedWord() {
         // console.log(`Text " ${globalSelectedItems} Type: ${typeof globalSelectedItems}`)
         // console.log(`Text " ${globalSelectedItems[0]}`)
         // console.log(`Text " ${globalSelectedItems[1]}`)
+        
         boolChecker()
+        scoreBoard()
         selectedItems[0].classList.remove('selected-button')
         selectedItems[1].classList.remove('selected-button')
         selectedItems.shift()
@@ -273,56 +271,13 @@ function initializeOps() {
     // });
 }
 
+function chooseDifficulty() {
 
-//!---------------------------------------------------
-// const selectedButtons = () => {
-
-//     let selectedItems = [];
-
-
-//     const selectButtons = document.querySelectorAll('.created-button');
-
-//     const getSelectedWords = () =>{
-//         returnSelected = selectedItems.map(item => item.textContent)
-//         return selectedItems.map(item => item.textContent);
-//     }
-
-//                     selectButtons.forEach(button => {
-//                                     button.addEventListener('click', function() {
-//                                         // If selected, unselects it
-//                                         if (this.classList.contains('selected-button')) {
-//                                             this.classList.remove('selected-button');
-//                                             selectedItems = selectedItems.filter(item => item !== this);
-//                                             return;
-//                                         }
-
-//                                         // after 2 selections, remove both
-//                                         if (selectedItems.length === 2) {
-//                                             selectedItems[0].classList.remove('selected-button');
-//                                             selectedItems[1].classList.remove('selected-button');
-//                                             selectedItems.shift();
-//                                             selectedItems.shift();
-//                                         }
-
-//                                         this.classList.add('selected-button');
-//                                         selectedItems.push(this);
-//                                         // getSelectedWords();
-
-//                                         // console.log('Currently selected:', getSelectedWords());
-//                                         // console.log(`Currently Selected: ${typeof getSelectedWords()} ${getSelectedWords()}`)
-//                                         // console.log(`Currently Selected stringify: ${JSON.stringify(getSelectedWords())}`)
-//                                         returnSelected = JSON.stringify(getSelectedWords())
-//                                         console.log(`Returned Value: ${returnSelected}`)
-//                                 })
-//                 })
-//     console.log(`Returnedasdasd Value: ${returnSelected}`)
-// }
-//!---------------------------------------------------
-
+}
 
         //TODO: Create func insertedSelectedClass() DO: Clear newly inserted class via selection
 
-//TODO: Create Func boolCheckTwoWords(), Argument: userSelectTwoWords(), DO: Checks 2 arrays if they are true or false. RETURNS bool. 
+//TODO: Create Func boolCheck(), Argument: userSelectTwoWords(), DO: Checks 2 arrays if they are true or false. RETURNS bool. 
 
         //TODO: IF true -- removeSelectedCards class 
         //TODO: IF false -- userSelectTwoWords 
@@ -348,19 +303,40 @@ const initializeTable = () =>{
         let bridgeWordsToTable = cloneWordsOnTable(selectRandWords())
         insertArrToHtml(shuffleTableArrayPos(bridgeWordsToTable))
         initializeOps()
-        // console.log(`test init`)
-        // countTableClear()
-        // console.log(`test init2`)
-        // console.log(getSelectedWords());
-        // console.log(`This is Test : ${selectedWordStringify}`)
-        // const getSelected = selectTwoButtons();
-        // const selectedWords = getSelected();
-        // boolChecker()
-        // let arr = ('Singapore','Singapore')
-        // boolChecker(arr)
+        // scoreBoard()
 }
 
+const resetAll = () => {
+    console.log(`Reset`)
+    // boolCounter = 0
+    // boolChecker()
+    // clearTimeout(timer)
+    document.querySelectorAll('.created-li').forEach(element => {
+        element.remove();
+    })
+    document.querySelectorAll('.created-ul').forEach(element => {
+        element.classList.remove('created-ul')
+    })
+    document.querySelectorAll('.created-section').forEach(element => {
+    element.remove()
+})
+    document.querySelector('#display').setAttribute("style","font-size: 14px;")
+    document.querySelector('#display').innerHTML = "To play, click for the number of rows you want, select the difficulty and start the game."
+    timeLeft = 0  
+    // clearTimeout(timer)
+    countDownTimer()
 
+    scoreBoardCounter = 0
+    scoreBoard()
+    boolChecker()
+}
+
+function summaryDisplay(){
+    console.log(`SummaryDisplay`)    
+    console.log(`finalScore ${finalScore}`)
+    document.querySelector('#display').setAttribute("style","font-size: 24px;")
+    document.querySelector('#display').innerHTML = "Your Final Score is: " + finalScore
+}
 
 //!-------------------------------- CALL FUNCTIONS ABOVE THIS LINE ---------------------------------\\
 
@@ -372,9 +348,18 @@ const initializeTable = () =>{
 
 
 
-proxyButtonTwoElement.addEventListener('click',cardsCreation)
+proxyButtonTwoElement.addEventListener('click',cardsCreation)       // SET ROWS OF CARDS
 
-proxyButtonFourElement.addEventListener('click',initializeTable)
+proxyButtonFourElement.addEventListener('click',function(){
+    clearTimeout(timer)
+    timeLeft = 10    //! TIMER HERE!!
+    countDownTimer()
+    timer = setInterval(countDownTimer,1000)
+})
+proxyButtonFourElement.addEventListener('click',initializeTable)    // START GAME BUTTON
+
+resetButtonElement.addEventListener('click', resetAll )             // RESET BUTTON
+
 
 
 

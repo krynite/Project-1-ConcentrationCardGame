@@ -10,15 +10,31 @@
 </head>
 <body>
     <h1>Project 1 - Concentration Card Game!</h1>
-    <button class="button-one">ProB 1 (RandomWordGen)</button>
-    <button class="button-two">Difficulty</button>
+    <!-- <button class="button-one">Difficulty DropDown List</button> -->
+     <div>
+        <p>Click --> <button class="button-two">Here</button> for more Rows!</p>
+        <!-- <p class="small-print">Note: More rows means higher score multiplier!</p> -->
+        <p>
+            <Label>Please Choose difficulty: </Label>
+            <select name="difficulty" class="diffSelector"> Haha
+                <option value="easy">Easy - Words are revealed.</option>
+                <option value="hard">Hard - Words are hidden.</option>
+            </select>
+            <p class="small-print">Note: More rows or higher difficulty means higher score multiplier!</p>
+    </p>
+    </div>
+    
     <!-- <button class="button-three">ProxB 3 (Start Game)</button> -->
     <button class="button-four">Start Game</button>
+    <button class="button-five">Reset</button>
     <div id="topPanel">
         <ul id="topPanelFlex">
-            <ul id="diffSelector"></ul>
-            <ul id="display" class="proxyTestButton"></ul>
-            <ul id="scoreboard"></ul>
+            <ul id="display" class="proxyTestButton">To play, click for the number of rows you want, select the difficulty and start the game.</ul>
+            <ul id="scoreboard">Score/Time Board
+                <li class="timerClass">Timer</li>
+                <li class="scoreClass">Score</li>
+            </ul>
+            
         </ul>
     </div>
 </body>

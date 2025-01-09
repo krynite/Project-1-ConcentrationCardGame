@@ -1,6 +1,6 @@
-* {
+/* * {
     border: 1px dashed red;
-}
+} */
 
 body {
     display: block;
@@ -30,8 +30,9 @@ section {
 
 #topPanelFlex{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     border: blue;
+
 }
 
 #diffSelector{
@@ -41,16 +42,17 @@ section {
 #display{
         padding: 0;
         width: 120px;
-        height: 180px;
+        height: 65px;
         cursor: pointer;
-        font-size: 24px;
+        font-size: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #ffffff;
         background-color: gray;
         border-radius: 15px;
-        border: 1px solid rgb(255, 60, 60);
+        border: 1px solid #ffffff;
+        flex-grow: 4;
 }
 
 .cards {
@@ -129,4 +131,10 @@ section {
 
 .bool-true {
     background: green;
+}
+
+.scoreboard {
+        display: flex;
+        justify-content: space-evenly;
+        flex-grow: 4
 }
