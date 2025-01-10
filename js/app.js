@@ -232,9 +232,9 @@ function highlightSelectedWord() {
         scoreBoard()
         selectedItems[0].classList.remove('selected-button')
         selectedItems[1].classList.remove('selected-button')
-        selectedItems.shift()
-        selectedItems.shift()
-        // selectedItems = []
+        // selectedItems.shift()
+        // selectedItems.shift()
+        selectedItems = []
     }
     this.classList.add('selected-button')
     selectedItems.push(this)
