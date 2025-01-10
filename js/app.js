@@ -232,9 +232,9 @@ function highlightSelectedWord() {
         scoreBoard()
         selectedItems[0].classList.remove('selected-button')
         selectedItems[1].classList.remove('selected-button')
-        selectedItems.shift()
-        selectedItems.shift()
-        // selectedItems = []
+        // selectedItems.shift()
+        // selectedItems.shift()
+        selectedItems = []
     }
     this.classList.add('selected-button')
     selectedItems.push(this)
@@ -274,6 +274,7 @@ function chooseDifficulty() {
         console.log('test if Hard')
         hiddenButtons.forEach(button => {
             button.classList.add('hidden-text')
+            // document.querySelectorAll('.created-button').forEach()
             
         })
         }
@@ -299,13 +300,13 @@ function chooseDifficulty() {
 //TODO: Write Function to remove all Section Table
 
 
-//!-------------------------------- CORE FUNCTIONS ABOVE THIS LINE ---------------------------------\\
+//!-------------------------------------------------------------------------------------------------\\
 
 //**************************************************************************************************\\
 //***************************************** NEUTRAL ZONE *******************************************\\
 //**************************************************************************************************\\
 
-//!-------------------------------- CALL FUNCTIONS BELOW THIS LINE ---------------------------------\\
+//!--------------------------------------------------------------=----------------------------------\\
 
 const cardsCreation = () => {
     // chooseDifficulty()
